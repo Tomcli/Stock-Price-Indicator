@@ -4,7 +4,7 @@ This is a web application for predicting stock price using data from _Quandl_.
 
 ## Important
 
-Authentication: Replace 'quandl.ApiConfig.api_key = 'YOURAPIKEY'' to your own Quandl API Key.
+Authentication: Replace `quandl.ApiConfig.api_key = 'YOURAPIKEY'` to your own Quandl API Key.
 
 ## Installation
 
