@@ -1,6 +1,6 @@
-# Investment and Trading web app
+# Stock Price Indicator
 
-This is a web application for predicting stock price using data from _Quandl_.
+This is a python script for predicting stock price using data from _Quandl_.
 
 ## Important
 
@@ -10,4 +10,4 @@ Authentication: Replace 'quandl.ApiConfig.api_key = 'YOURAPIKEY'' to your own Qu
 
 1. Download and unzip this package. 
 2. Replace authentication to your own Quandl API Key.
-3. Open index.html in any web browser.
+3. Run 'python main.py' in this directory.
