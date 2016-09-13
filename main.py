@@ -21,7 +21,7 @@ def run():
 		tick_ = tick.replace(' ','')
 		print "This is the data for " + tick_
 		data = stock.getData(tick_,start_date[0],end_date[0],"monthly","default")
-		print data.head()
+		print data
 	file.close()
 	
 
