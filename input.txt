@@ -1,0 +1,5 @@
+Ticker symbols: goog, fb
+Start_date:2014-01-01
+End_date:2014-12-31
+
+*end of file*
