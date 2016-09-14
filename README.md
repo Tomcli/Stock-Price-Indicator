@@ -19,5 +19,5 @@ This is a python script for predicting stock price using data from _Quandl_.
 
 ## Formatting for input.txt
 - Ticker symbols: Put down all your ticker symbols and separate it with `,`
-- Start_date: Put down yyyy-mm-dd or default
-- End_date: Put down yyyy-mm-dd or default
+- Start_date: Put down data starting date with yyyy-mm-dd format or default
+- End_date: Put down data ending date with yyyy-mm-dd format or default
