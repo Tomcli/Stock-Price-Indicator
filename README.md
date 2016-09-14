@@ -5,6 +5,7 @@ This is a python script for predicting stock price using data from _Quandl_.
 ## Important
 
 Authentication: Replace `quandl.ApiConfig.api_key = 'YOURAPIKEY'` to your own Quandl API Key.
+Libraries: Must have `quandl`, `parse`, `numpy`, `pandas`, and `matplotlib` installed to your python interpreter.
 
 ## Installation
 
