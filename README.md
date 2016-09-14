@@ -17,6 +17,6 @@ Authentication: Replace `quandl.ApiConfig.api_key = 'YOURAPIKEY'` to your own Qu
 2. Run `python main.py` in this directory.
 
 ## Formatting for input.txt
-Ticker symbols: Put down all your ticker symbols and separate it with `,`
-Start_date: Put down yyyy-mm-dd or default
-End_date: Put down yyyy-mm-dd or default
+-Ticker symbols: Put down all your ticker symbols and separate it with `,`
+-Start_date: Put down yyyy-mm-dd or default
+-End_date: Put down yyyy-mm-dd or default
