@@ -1,5 +1,6 @@
 Ticker symbols: goog, fb
 Start_date:2014-01-01
-End_date:2016-12-31
+End_date:2016-09-12
+Predict_date: 2016-09-13,2016-11-25, 2016-12-25
 
 *end of file*
