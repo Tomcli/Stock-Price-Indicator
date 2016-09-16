@@ -2,7 +2,7 @@ import quandl
 quandl.ApiConfig.api_key = 'YOURAPIKEY' #This is a private API key.
 
 def getData(ticker,start,end,collapses,trans):
-	quandlTicker = "WIKI/" + ticker
+	quandlTicker = "YAHOO/" + ticker
 	data = []
 	if start.replace(' ','') == 'default':
 		start = ''
