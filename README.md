@@ -14,7 +14,7 @@ This is a python script for predicting stock price using data from _Quandl_. Thi
 3. Install `quandl`, `parse`, `numpy`, `pandas`, and `matplotlib` to your python. You can use `pip install [library]` to install.
 
 ## How to use this script
-1. Put in all the variables in **input.txt** (Please read **Definition for input.txt** for more details).
+1. Modify **input.txt** with your stocks' ticker symbol, open price, highest price, and volume for your prediction or leave it as default for recommendation (Please read **Definition for input.txt** for more details).
 2. Run `python main.py` in this directory.
 
 ## Definition for input.txt
