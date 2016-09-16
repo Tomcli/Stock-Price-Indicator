@@ -16,6 +16,7 @@ This is a python script for predicting stock price using data from _Quandl_. Thi
 ## How to use this script
 1. Modify **input.txt** with your stocks' ticker symbol, open price, highest price, and volume for your prediction or leave it as default for recommendation (Please read **Definition for input.txt** for more details).
 2. Run `python main.py` in this directory.
+3. Use the result to justify your buying and selling.
 
 ## Definition for input.txt
 - Ticker symbols: Put down all your ticker symbols and separate each of them with `,`
