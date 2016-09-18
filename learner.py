@@ -24,12 +24,9 @@ class trainer:
 	def training(self,start_date,end_date):
 		data = stock.getData(self.ticker,start_date,end_date,"default","default")
 		data.drop(['Close','Low'], axis = 1, inplace = True)
+		if start_date.replace(' ','') == 'default':
+			data = data.tail(150)
 		self.data = data
-		# dates = self.data.index.values
-		# delta = datetime.strptime("2010-01-01", "%Y-%m-%d")
-		# X = [datetime.strptime(str(date), "%Y-%m-%d 00:00:00") for date in self.data.index]
-		# X = [(date-delta).days for date in X]
-		# X = pd.DataFrame(X,index=[x for x in self.data.index],columns=['days'])
 		X = self.data[self.data.columns[:-1]]
 		Y = self.data[self.data.columns[-1]]
 		X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, Y, test_size=0.25, random_state=0)
@@ -55,16 +52,23 @@ class predictor:
 		self.ticker = ticker
 		self.clf = clf
 		self.pred_result = None
+		self.act_result = None
 
 	def predicting(self,dates):
 		datas = [0] * len(dates)
-		data = stock.getData(self.ticker,'2010-01-01','2020-12-31',"default","default")
+		result = []
+		data = stock.getData(self.ticker,'default','default',"default","default")
 		for i, date in enumerate(dates):
 			temp = data.ix[date]
 			datas[i] = [temp[0],temp[1],temp[4]]
+			result.append(temp[5])
 		predicts = self.clf.predict(datas)
 		self.pred_result = predicts
+		self.act_result = result
 		return predicts
 
 	def getPred_result(self):
 		return self.pred_result
+
+	def getAct_result(self):
+		return self.act_result

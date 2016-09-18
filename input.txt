@@ -1,6 +1,14 @@
+Main Inputs::
 Ticker symbols: goog, fb
+Recommendation: yes
+
+Developer Inputs::
+Developer Mode: False
 Start_date:2015-03-11
 End_date:2015-09-11
 Predict_date: 2015-09-21, 2016-09-15
+
+Debug Inputs::
+Predict_value:(741.86,742.0,2980700);(732.01,737.75,1594900)
 
 *end of file*
