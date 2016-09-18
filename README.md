@@ -1,6 +1,6 @@
 # Stock Price Indicator
 
-This is a python script for predicting stock price using data from _Quandl_. This script will take your stocks' current stock Open price, highest price, and volume to make a prediction for those stocks' adjusted close price of the day. 
+This is a python script for predicting stock's adjused close price using data from _Quandl_. This script will take your current stock open price, highest price, and volume to make a prediction for the adjusted close price of the day. 
 
 ## Important
 
