@@ -21,7 +21,7 @@ class trainer:
 		self.clf = None
 		self.clf_score = None
 
-	def training(self,start_date,end_date):
+	def training(self,start_date,end_date,best_est):
 		data = stock.getData(self.ticker,start_date,end_date,"default","default")
 		data.drop(['Close','Low'], axis = 1, inplace = True)
 		if start_date.replace(' ','') == 'default':
@@ -35,7 +35,8 @@ class trainer:
 		grid_obj = GridSearchCV(clf,parameters)
 		grid_obj = grid_obj.fit(X_train,y_train)
 		clf = grid_obj.best_estimator_
-		print grid_obj.best_estimator_
+		if best_est == 'on':
+			print grid_obj.best_estimator_
 		clf.fit(X_train, y_train)
 		self.clf_score = clf.score(X_test,y_test)
 		self.clf = clf
@@ -66,6 +67,10 @@ class predictor:
 		self.pred_result = predicts
 		self.act_result = result
 		return predicts
+
+	def pred_curr(self,inputs):
+		predict = self.clf.predict([inputs])
+		return predict
 
 	def getPred_result(self):
 		return self.pred_result

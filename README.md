@@ -20,13 +20,15 @@ This is a python script for predicting stock's adjused close price using data fr
 
 ## Definition for input.txt##
 ### Main Inputs
-- Ticker symbols: Put down all your ticker symbols and separate each of them with `,` (e.g. GOOG,FB)
+- Ticker symbols: Put down all your ticker symbols and separate each of them with `,` (e.g. GOOG,FB).
+- Recommendation: Put down **yes** for recommendations to buy or sell for each trained stock, **no** otherwise.
 
 ### Developer Inputs
-- Developer Mode: Set it ##True## to enable all the developer inputs. Otherwise set it ##False##
-- Start_date: Put down data training starting date with yyyy-mm-dd format or default(all the data from 2013 to 2016)
-- End_date: Put down data traing ending date with yyyy-mm-dd format or default(all the data from 2013 to 2016)
-- Predict_date: Put down the date you want to predict with yyyy-mm-dd format or default(predict stock prices for the recent week)
+- Developer Mode: Set it **on** to enable all the developer inputs. Otherwise set it **off**.
+- Show best_estimator: Set it **on** to print out the best estimator and it's parameters, **off** otherwise. 
+- Start_date: Put down data training starting date with yyyy-mm-dd format or default(data from the past three months).
+- End_date: Put down data traing ending date with yyyy-mm-dd format or default(data from the past three months).
+- Predict_date: Put down the date you want to predict with yyyy-mm-dd format and separate each of them with `,` (e.g. 2015-09-21, 2016-09-15). Important: Predict dates that are not exist in the quandl database will create an error.
 
 ### Debug Inputs
 Please ignore all the debug inputs since it's for debugging.
