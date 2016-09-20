@@ -1,6 +1,6 @@
 import quandl
 from yahoo_finance import Share
-quandl.ApiConfig.api_key = 'YOURAPIKEY' #This is a private API key.
+quandl.ApiConfig.api_key = 'K4JB2eKifGbx8RxUR9sc' #This is a private API key.
 
 def getData(ticker,start,end,collapses,trans):
 	quandlTicker = "YAHOO/" + ticker
