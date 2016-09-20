@@ -11,12 +11,14 @@ from datetime import datetime
 def run():
 	file = open("input.txt", "r")
 	inputs = file.read()
-	#parsing
+	#parsing inputs from input.txt
 	ticker = search('Ticker symbols:{}\n',inputs)
 	tickers = ticker[0].split(",") #put all the ticker symbols into a list
 	tickers = [tick.replace(' ','') for tick in tickers] #remove all the spaces for ticker symbols
 	recomm = search('Recommendation:{}\n',inputs)
 	recomm = recomm[0].replace(' ','')
+	graph = search('Show estimated graph:{}\n',inputs)
+	graph = graph[0].replace(' ','')
 	dev_mode = search('Developer Mode:{}\n',inputs)
 	dev_mode = dev_mode[0].replace(' ','')
 	best_est = search('Show best_estimator:{}\n',inputs)
@@ -28,8 +30,8 @@ def run():
 	pred_date = search('Predict_date:{}\n',inputs)
 	pred_dates = pred_date[0].split(",")
 	pred_dates = [date.replace(' ','') for date in pred_dates]
-	# pred_value = search('Predict_value:{}\n',inputs)  #These 7 lines of code are debugging code for parsing pred_value
-	# pred_values = pred_value[0].split(";")			#pred_value are used for testing by putting your own open, high, and volume
+	# pred_value = search('Predict_value:{}\n',inputs)  #Ignore this since these 7 lines of debugging code are for parsing pred_value
+	# pred_values = pred_value[0].split(";")			#pred_value is used for testing by putting your own open, high, and volume
 	# pred_values_ = []
 	# for values in pred_values:
 	# 	temp = search('({:f},{:f},{:d})',values)
@@ -47,7 +49,7 @@ def run():
 	for i, tick in enumerate(tickers):
 		print "Training for " + tick + "..."
 		trainers[i] = learner.trainer(tick)
-		trainers[i].training(start_date,end_date,best_est)
+		trainers[i].training(start_date,end_date,best_est,graph)
 		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100)
 		print "This is the result for " + tick + ":"
 		predictors[i] = learner.predictor(tick, trainers[i].getClf())

@@ -11,6 +11,9 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.neighbors import KNeighborsRegressor
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import matplotlib
 import data as stock
 
 
@@ -21,11 +24,12 @@ class trainer:
 		self.clf = None
 		self.clf_score = None
 
-	def training(self,start_date,end_date,best_est):
+	def training(self,start_date,end_date,best_est,graph):
 		data = stock.getData(self.ticker,start_date,end_date,"default","default")
-		data.drop(['Close','Low'], axis = 1, inplace = True)
 		if start_date.replace(' ','') == 'default':
 			data = data.tail(150)
+		close = data['Close']
+		data.drop(['Close','Low'], axis = 1, inplace = True)
 		self.data = data
 		X = self.data[self.data.columns[:-1]]
 		Y = self.data[self.data.columns[-1]]
@@ -40,6 +44,20 @@ class trainer:
 		clf.fit(X_train, y_train)
 		self.clf_score = clf.score(X_test,y_test)
 		self.clf = clf
+		if graph == 'on': #show plot if the estimated graph condition is on
+			plot = plt.figure()
+			matplotlib.style.use('ggplot')
+			regressor = clf.predict(X)
+			#reference from sklearn: http://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_regression.html
+			plt1, = plt.plot(close, c = 'r', label = 'Actual adjusted close') 
+			plt2, = plt.plot(data.index, regressor, c = 'g' , label = "Predicted adjusted close")
+			plt.xlabel("Date")
+			plt.ylabel("Adjusted close")
+			plt.title("Adjusted close for " + self.ticker)
+			r2 = mpatches.Patch(label='R2 score: {:.4f}'.format(self.clf_score)) #reference from matplotlib legend guide
+			plt.legend(handles = [r2,plt1,plt2]) 
+			plt.show()
+			plt.close(plot)
 		return clf
 
 	def getClf(self):
