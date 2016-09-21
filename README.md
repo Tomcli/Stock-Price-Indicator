@@ -32,7 +32,7 @@ This is a python script for predicting stock's adjused close price using data fr
 - Start_date: Put down data training starting date with yyyy-mm-dd format or default(data from the past three months).
 - End_date: Put down data traing ending date with yyyy-mm-dd format or default(data from the past three months).
 - Prediction by date: Set it **on** to enable **Predict_date** inputs and disable today's prediction. Otherwise set it **off**. (Default: **off**.)
-- Predict_date: Put down the date you want to predict with yyyy-mm-dd format and separate each of them with `,` (e.g. 2015-09-21, 2016-09-15). Important: Predict dates that are not exist in the quandl database will create an error. Remember to set **Prediction by date** to **on** in order to enable this feature.
+- Predict_date: Put down the date you want to predict with yyyy-mm-dd format and separate each of them with `,` (e.g. **2015-09-21, 2016-09-15**). Important: Predict dates that are not exist in the quandl database will create an error. Remember to set **Prediction by date** to **on** in order to enable this feature.
 - Data preprocessing: Set it **off** to disable data preprocessing. Otherwise set it **on**. (Default: **on**.)
 
 
