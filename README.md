@@ -14,7 +14,7 @@ This is a python script for predicting stock's adjusted close price using data f
 3. Install `quandl`, `yahoo-finance`, `parse`, `numpy`, `pandas`, and `matplotlib` to your python. You can use `pip install [library]` to install.
 
 ## How to use this script##
-1. Modify **input.txt** with your stocks' ticker symbols and leave everything else as default for recommendations or put down your own customize data (Please read **Definition for input.txt** for more details).
+1. Modify **input.txt** with your stocks' ticker symbols and leave everything else as default for recommendations or put down your own customized data (Please read **Definition for input.txt** for more details).
 2. Run `python main.py` in this directory.
 3. Use the result to justify your buying and selling.
 
