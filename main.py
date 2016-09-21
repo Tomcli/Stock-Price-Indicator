@@ -50,6 +50,9 @@ def run():
 	pred_date = search('Predict_date:{}\n',inputs)
 	pred_dates = pred_date[0].split(",")
 	pred_dates = [date.replace(' ','') for date in pred_dates]
+
+	data_pre = search('Data preprocessing:{}\n',inputs)
+	data_pre = data_pre[0].replace(' ','')
 	# pred_value = search('Predict_value:{}\n',inputs)  #Ignore this since these 7 lines of debugging code are for parsing pred_value
 	# pred_values = pred_value[0].split(";")			#pred_value is used for testing by putting your own open, high, and volume
 	# pred_values_ = []
@@ -65,14 +68,17 @@ def run():
 		best_est = 'off'
 		graph = 'off'
 		pred_by_date = 'off'
+		data_pre = 'on'
 	#training and predicting
 	trainers = [0] * len(tickers)
 	predictors = [0] * len(tickers)
 	for i, tick in enumerate(tickers):
+		#training data
 		print "Training for " + tick + "..."
 		trainers[i] = learner.trainer(tick)
-		trainers[i].training(start_date,end_date,best_est,graph)
+		trainers[i].training(start_date, end_date, best_est, graph, data_pre)
 		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100)
+		#predicting adjusted close
 		print "This is the result for " + tick + ":"
 		predictors[i] = learner.predictor(tick, trainers[i].getClf())
 		if pred_by_date == 'on': #if developer mode is on, do prediction based on date
@@ -89,7 +95,7 @@ def run():
 			if recomm == 'yes':
 				print 'Curreny price for {} is {}'.format(tick, cur_data[3])
 				print 'Recommendation:: Sell {} if price is greater than {:.2f}. Buy {} if price is lower than {:.2f}.'.format(
-						tick,float(result) * 1.05, tick,float(result) * 0.95)
+						tick,float(result) * 1.03, tick,float(result) * 0.97)
 		if manual == 'yes':
 			for data in manual_data_:
 				if data[0] == tick:
