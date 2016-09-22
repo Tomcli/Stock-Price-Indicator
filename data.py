@@ -3,6 +3,9 @@ from yahoo_finance import Share
 quandl.ApiConfig.api_key = 'K4JB2eKifGbx8RxUR9sc' #This is a public API key.
 
 def getData(ticker,start,end,collapses,trans):
+	"""
+	Query the data based on the parameters and Return the query.
+	"""
 	quandlTicker = "YAHOO/" + ticker
 	data = []
 	if start.replace(' ','') == 'default':
@@ -17,6 +20,9 @@ def getData(ticker,start,end,collapses,trans):
 	return data
 
 def getCurrent(ticker):
+	"""
+	Return the most recent stock data through yahoo_finance.
+	"""
 	stock = Share(ticker)
 	stock.refresh() #refresh the query
 	open_ = stock.get_open()

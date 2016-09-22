@@ -9,8 +9,9 @@ from parse import *
 from datetime import datetime
 
 def run():
-	file = open("input.txt", "r")
+	file = open("input.txt", "r") #get all the user inputs from input.txt
 	inputs = file.read()
+
 	#parsing inputs from input.txt
 	ticker = search('Ticker symbols:{}\n',inputs)
 	tickers = ticker[0].split(",") #put all the ticker symbols into a list
@@ -53,6 +54,7 @@ def run():
 
 	data_pre = search('Data preprocessing:{}\n',inputs)
 	data_pre = data_pre[0].replace(' ','')
+
 	# pred_value = search('Predict_value:{}\n',inputs)  #Ignore this since these 7 lines of debugging code are for parsing pred_value
 	# pred_values = pred_value[0].split(";")			#pred_value is used for testing by putting your own open, high, and volume
 	# pred_values_ = []
@@ -60,6 +62,9 @@ def run():
 	# 	temp = search('({:f},{:f},{:d})',values)
 	# 	pred_values_.append([temp[x] for x in range(3)])
 	# print pred_values_
+
+
+	#Finish parsing
 	if dev_mode == 'on':
 		print 'Developer mode on' 
 	else: #if developer mode is off, set the developer inputs to default
@@ -69,34 +74,39 @@ def run():
 		graph = 'off'
 		pred_by_date = 'off'
 		data_pre = 'on'
+
 	#training and predicting
-	trainers = [0] * len(tickers)
+	trainers = [0] * len(tickers) #put all the trainer and predictor objects into lists
 	predictors = [0] * len(tickers)
-	for i, tick in enumerate(tickers):
+	for i, tick in enumerate(tickers): #train and predict for every ticker symbol
 		#training data
 		print "Training for " + tick + "..."
-		trainers[i] = learner.trainer(tick)
-		trainers[i].training(start_date, end_date, best_est, graph, data_pre)
-		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100)
+		trainers[i] = learner.trainer(tick) #trainer is a class that trains all the data
+		#train based on start_data and end_data, and decide whether or not to enable plots and preprocess data
+		trainers[i].training(start_date, end_date, best_est, graph, data_pre) 
+		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100) #error rate is perecentage of (1 - R2 score)
+		
 		#predicting adjusted close
 		print "This is the result for " + tick + ":"
-		predictors[i] = learner.predictor(tick, trainers[i].getClf())
-		if pred_by_date == 'on': #if developer mode is on, do prediction based on date
+		#predictor is a class that predicts the adjusted close price based on the trained regressor
+		predictors[i] = learner.predictor(tick, trainers[i].getClf()) 
+		if pred_by_date == 'on': #if Prediction by date is on, do prediction based on the given date
 			results = predictors[i].predicting(pred_dates)
 			act_result = predictors[i].getAct_result()
-			for (i,), result in np.ndenumerate(results):
+			for (i,), result in np.ndenumerate(results): #iterate through a numpy array
 				print 'Predicted adjusted close value for {} is {:.4f}'.format(pred_dates[i], result)
 				print 'Actual adjusted close value for {} is {:.4f}'.format(pred_dates[i], act_result[i])
-		else:
+		else: #if Prediction by date is off, predict the adjusted close price for today (most recent query from yahoo-finance)
 			cur_data = stock.getCurrent(tick)
-			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23])
+			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
 			result = predictors[i].pred_curr(cur_data[0:3])
 			print 'Predicted adjusted close value for today is {:.2f}'.format(float(result))
-			if recomm == 'yes':
+			if recomm == 'yes': #if recommendation is yes, give recomendations to buy or sell based on the predicted price with 3% boundary 
 				print 'Curreny price for {} is {}'.format(tick, cur_data[3])
 				print 'Recommendation:: Sell {} if price is greater than {:.2f}. Buy {} if price is lower than {:.2f}.'.format(
 						tick,float(result) * 1.03, tick,float(result) * 0.97)
-		if manual == 'yes':
+
+		if manual == 'yes': #if Manual inputs is yes, predict the adjusted close price based on the given values
 			for data in manual_data_:
 				if data[0] == tick:
 					print 'Your manual input for {} is ({},{},{})'.format(data[0],data[1],data[2],data[3])
