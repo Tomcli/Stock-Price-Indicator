@@ -33,12 +33,12 @@ class trainer:
 		data = stock.getData(self.ticker,start_date,end_date,"default","default") #query the data
 		if start_date.replace(' ','') == 'default':
 			data = data.tail(600) #In general, 600 samples is the best for bagging regressor. Anything above or below will be overfitted or bias.
-		adj_close = data['Adjusted Close']
 		data.drop(['Close','Low'], axis = 1, inplace = True) #drop the two unnecessary features
 		if not data_pre == 'off':
 			data = self.data_preprocessing(data)
 		else: #don't preprocess the data if Data preprocessing is off
 			print 'Warning: Data preprocessing is off.'
+		adj_close = data['Adjusted Close']
 		self.data = data
 
 		#Choose training and testing set using Cross-validation
@@ -71,6 +71,18 @@ class trainer:
 			plt.legend(handles = [r2,plt1,plt2]) 
 			plt.show()
 			plt.close(plot)
+
+		#Testing code: plots for Exploratory Visualization
+		#plot = plt.figure()
+		# plt.plot(adj_close, self.data['Open'],'ro', c = 'r', label = 'Open price for ' + self.ticker) 
+		# plt.plot(adj_close, self.data['High'],'ro',c = 'g', label = 'Highest price for ' + self.ticker) 
+		# plt.plot(adj_close, self.data['Volume'], 'ro', c = 'k', label = 'Volume for ' + self.ticker) 
+		# plt.xlabel("Adjusted close price for " + self.ticker)
+		# plt.ylabel("Open and highest price for " + self.ticker)
+		# plt.legend()
+		# plt.show()
+		# plt.close(plot)
+
 		return clf
 
 	def getClf(self):

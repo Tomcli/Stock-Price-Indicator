@@ -1,8 +1,8 @@
 Main Inputs::
-Ticker symbols: goog, fb, yhoo, msft
+Ticker symbols: GOOG, FB, YHOO, MSFT
 Recommendation: yes
 Manual inputs: no
-Stock data:(goog,741.86,742.0,2980700);(fb,126.89,128.80,15691100)
+Stock data:(GOOG,741.86,742.0,2980700);(FB,126.89,128.80,15691100)
 
 Developer Inputs::
 Developer Mode: off
