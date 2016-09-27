@@ -28,26 +28,35 @@ class trainer:
 	def training(self,start_date,end_date,best_est,graph,data_pre):
 		"""
 		Train the data based on the given parameters. Plot graph and show best estimator if the user is ask for.
+		Most of the commented codes are for testing. Please ignore or delete them.
 		"""
 		#Query and preprocess the data
 		data = stock.getData(self.ticker,start_date,end_date,"default","default") #query the data
-		if start_date.replace(' ','') == 'default':
-			data = data.tail(600) #In general, 600 samples is the best for bagging regressor. Anything above or below will be overfitted or bias.
+		# if start_date.replace(' ','') == 'default':
 		data.drop(['Close','Low'], axis = 1, inplace = True) #drop the two unnecessary features
+		data = data.tail(600) #In general, 600 samples is the best for bagging regressor.
+		datas = []
+		# for i in range(1,11):
+		# 	datas.append(data.tail(i*200))
 		if not data_pre == 'off':
 			data = self.data_preprocessing(data)
+			# for i, da in enumerate(datas): #testing code for refinement
+			# 	datas[i] = self.data_preprocessing(da)
 		else: #don't preprocess the data if Data preprocessing is off
 			print 'Warning: Data preprocessing is off.'
 		adj_close = data['Adjusted Close']
 		self.data = data
-
+		#clfs = []
+		#for i, da in enumerate(datas):
 		#Choose training and testing set using Cross-validation
 		X = self.data[self.data.columns[:-1]]
 		Y = self.data[self.data.columns[-1]]
 		X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, Y, test_size=0.25, random_state=0)
 		clf = ensemble.BaggingRegressor(tree.DecisionTreeRegressor(max_depth = 50),random_state=0,n_estimators=50)
+		#clf = ensemble.BaggingRegressor(KNeighborsRegressor(n_neighbors=10),random_state=0,n_estimators=50)
 		#Tune parameters using grid search
-		parameters = {'base_estimator__max_depth': (5,10,20,50),'n_estimators':(5,10,20,50)}#,'learning_rate':(0.5,0.8,1)
+		parameters = {'base_estimator__max_depth': (5,10,20,50),'n_estimators':(5,10,20,50)}
+		#parameters = {'base_estimator__n_neighbors': (3,5,8,10,15),'n_estimators':(5,10,20,50)}
 		grid_obj = GridSearchCV(clf,parameters)
 		grid_obj = grid_obj.fit(X_train,y_train)
 		clf = grid_obj.best_estimator_
@@ -55,7 +64,9 @@ class trainer:
 			print grid_obj.best_estimator_
 		clf.fit(X_train, y_train)
 		self.clf_score = clf.score(X_test,y_test) #Store R2 score
+		#print "Error rate for {}: {:.4f}% with {} data(DC)".format(self.ticker,(1 - self.clf_score) * 100, (i+1)*200)
 		self.clf = clf
+		#clfs.append(clf)
 
 		if graph == 'on': #show plot if show estimated graph condition is on
 			plot = plt.figure()
@@ -97,7 +108,7 @@ class trainer:
 		"""
 		non_outliers = []
 		data['difference'] = data['Open'] - data['Adjusted Close']
-		#Outliers are the data outside the interquartile range
+		#Calculate outliers using interquartile range
 		Q1 = np.percentile(data['difference'],25)
 		Q3 = np.percentile(data['difference'],75)
 		step = 1.5*(Q3 - Q1)

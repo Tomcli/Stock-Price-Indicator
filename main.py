@@ -101,10 +101,10 @@ def run():
 			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
 			result = predictors[i].pred_curr(cur_data[0:3])
 			print 'Predicted adjusted close value for today is {:.2f}'.format(float(result))
-			if recomm == 'yes': #if recommendation is yes, give recomendations to buy or sell based on the predicted price with 3% boundary 
+			if recomm == 'yes': #if recommendation is yes, give recomendations to buy or sell based on the predicted price with 1.5*error rate boundary 
 				error = (1 - trainers[i].getClf_score())
-				print 'Curreny price for {} is {}'.format(tick, cur_data[3])
-				print 'Recommendation:: Sell {} if price is greater than {:.2f}. Buy {} if price is lower than {:.2f}.'.format(
+				print 'Real time price for {} is {}'.format(tick, cur_data[3])
+				print 'Recommendation: Sell {} if the price is greater than {:.2f}. Buy {} if the price is lower than {:.2f}.'.format(
 						tick,float(result) * (1 + (1.5*error)), tick,float(result) * (1 - (1.5*error)))
 
 		if manual == 'yes': #if Manual inputs is yes, predict the adjusted close price based on the given values

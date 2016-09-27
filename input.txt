@@ -1,17 +1,17 @@
 Main Inputs::
-Ticker symbols: GOOG, FB, YHOO, MSFT
+Ticker symbols: GOOG, YHOO, FB, MSFT
 Recommendation: yes
 Manual inputs: no
 Stock data:(GOOG,741.86,742.0,2980700);(FB,126.89,128.80,15691100)
 
 Developer Inputs::
-Developer Mode: off
+Developer Mode: on
 Show best_estimator: off
 Show estimated graph: off
-Start_date:2015-03-11
-End_date:2015-09-11
-Prediction by date: off
-Predict_date: 2015-09-21, 2016-09-15
+Start_date:2005-03-11
+End_date:2016-09-22
+Prediction by date: on
+Predict_date: 2016-09-23
 Data preprocessing: on
 
 Debugging Inputs::
