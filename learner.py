@@ -35,7 +35,7 @@ class trainer:
 		# if start_date.replace(' ','') == 'default':
 		data.drop(['Close','Low'], axis = 1, inplace = True) #drop the two unnecessary features
 		data = data.tail(600) #In general, 600 samples is the best for bagging regressor.
-		datas = []
+		#datas = []
 		# for i in range(1,11):
 		# 	datas.append(data.tail(i*200))
 		if not data_pre == 'off':
@@ -104,7 +104,7 @@ class trainer:
 
 	def data_preprocessing(self, data):
 		"""
-		Preprocess the data based on the difference of the open price and adjusted close price.
+		Preprocess the data based on the differences between open and adjusted close price.
 		"""
 		non_outliers = []
 		data['difference'] = data['Open'] - data['Adjusted Close']

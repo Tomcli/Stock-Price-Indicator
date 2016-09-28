@@ -12,7 +12,7 @@ def run():
 	file = open("input.txt", "r") #get all the user inputs from input.txt
 	inputs = file.read()
 
-	#parsing inputs from input.txt
+	"""parsing inputs from input.txt"""
 	ticker = search('Ticker symbols:{}\n',inputs)
 	tickers = ticker[0].split(",") #put all the ticker symbols into a list
 	tickers = [tick.replace(' ','') for tick in tickers] #remove all the unnecessary spaces
@@ -23,12 +23,13 @@ def run():
 	manual = search('Manual inputs:{}\n',inputs)
 	manual = manual[0].replace(' ','')
 
-	manual_data = search('Stock data:{}\n',inputs)
-	manual_data = manual_data[0].split(";")
-	manual_data_ =[]
-	for data in manual_data:
-	 	temp = search('({},{:f},{:f},{:d})',data)
-	 	manual_data_.append([temp[x] for x in range(4)])
+	if manual == 'yes': #if manual input is no, we don't need to parse stock data
+		manual_data = search('Stock data:{}\n',inputs)
+		manual_data = manual_data[0].split(";")
+		manual_data_ =[]
+		for data in manual_data:
+		 	temp = search('({},{:f},{:f},{:d})',data)
+		 	manual_data_.append([temp[x] for x in range(4)])
 
 	graph = search('Show estimated graph:{}\n',inputs)
 	graph = graph[0].replace(' ','')
@@ -64,7 +65,7 @@ def run():
 	# print pred_values_
 
 
-	#Finish parsing
+	"""Finish parsing"""
 	if dev_mode == 'on':
 		print 'Developer mode on' 
 	else: #if developer mode is off, set the developer inputs to default
@@ -79,23 +80,25 @@ def run():
 	trainers = [0] * len(tickers) #put all the trainer and predictor objects into lists
 	predictors = [0] * len(tickers)
 	for i, tick in enumerate(tickers): #train and predict for every ticker symbol
-		#training data
+		"""training data"""
 		print "Training for " + tick + "..."
 		trainers[i] = learner.trainer(tick) #trainer is a class that trains all the data
 		#train based on start_data and end_data, and decide whether or not to enable plots and preprocess data
 		trainers[i].training(start_date, end_date, best_est, graph, data_pre) 
 		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100) #error rate is perecentage of (1 - R2 score)
 		
-		#predicting adjusted close
+		"""predicting adjusted close"""
 		print "This is the result for " + tick + ":"
 		#predictor is a class that predicts the adjusted close price based on the trained regressor
 		predictors[i] = learner.predictor(tick, trainers[i].getClf()) 
 		if pred_by_date == 'on': #if Prediction by date is on, do prediction based on the given date
 			results = predictors[i].predicting(pred_dates)
 			act_result = predictors[i].getAct_result()
+			print 'Training data are from {} to {}'.format(start_date, end_date)
 			for (i,), result in np.ndenumerate(results): #iterate through a numpy array
 				print 'Predicted adjusted close value for {} is {:.4f}'.format(pred_dates[i], result)
 				print 'Actual adjusted close value for {} is {:.4f}'.format(pred_dates[i], act_result[i])
+				
 		else: #if Prediction by date is off, predict the adjusted close price for today (most recent query from yahoo-finance)
 			cur_data = stock.getCurrent(tick)
 			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
