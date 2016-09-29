@@ -6,16 +6,17 @@ This is a python script for predicting stock's adjusted close price using data f
 
 - Authentication: Replace `quandl.ApiConfig.api_key = 'YOURAPIKEY'` to your own Quandl API key in **data.py**. Strongly recommend replacing this with your own API key since the current API key in data.py is shared with the public.
 - Libraries: Must have `quandl`, `yahoo-finance`, `parse`, `numpy`, `pandas`, and `matplotlib` installed to your python interpreter.
+- Installation: The installation instructions are for OS X and Linux users. Windows users need to install a terminal that runs Unix commands.
 
 ## Installation
 
 1. Download and unzip this package. 
-2. Replace authentication key to your own Quandl API Key at line 3 in **data.py** .
-3. Install `quandl`, `yahoo-finance`, `parse`, `numpy`, `pandas`, and `matplotlib` to your python. You can use `pip install [library]` to install.
+2. Replace authentication key to your own Quandl API Key at line 3 in **data.py**.
+3. Install `quandl`, `yahoo-finance`, `parse`, `numpy`, `pandas`, and `matplotlib` to your python. You can use `pip install [library]` in your terminal to install.
 
 ## How to use this script##
 1. Modify **input.txt** with your stocks' ticker symbols and leave everything else as default for recommendations or put down your own customized data (Please read **Definition for input.txt** for more details).
-2. Run `python main.py` in this directory.
+2. Open your terminal. Run `python main.py` in this directory.
 3. Use the result to justify your buying and selling.
 
 ## Definition for input.txt##
@@ -24,7 +25,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Recommendation: Put down **yes** for recommendations to buy or sell for each trained stock. (Default: **no**)
 - Manual inputs: Put down **yes** to enable **Stock data** inputs. (Default: **no**)
 - Stock data: Put down the stock data that you want to predict manually with (ticker symbols, open price, current highest price, volume) format and separate each of them with `;` (e.g. **(goog,741.86,742.0,2980700);(fb,126.89,128.80,15691100)**). Be aware that **open price** and **current highest price** need to have 2 decimals(e.g **42.12**) and volume has to be a whole number. Remember to put down **yes** at **Manual inputs** to enable this feature.
-- Data size: Put down the number of data you want to train. The number must be an integer.(Default: **600**)
+- Data size: Put down the number of data you want to train. The number must be an integer. (Default: **600**)
 
 ### Developer Inputs
 - Developer Mode: Set it **on** to enable all the developer inputs. (Default: **off**)

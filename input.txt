@@ -1,12 +1,12 @@
 Main Inputs::
-Ticker symbols: GOOG
+Ticker symbols: GOOG, YHOO, FB, MSFT
 Recommendation: yes
 Manual inputs: no
 Stock data:(GOOG,741.86,742.0,2980700);(FB,126.89,128.80,15691100)
 Data size: 600
 
 Developer Inputs::
-Developer Mode: on
+Developer Mode: off
 Show best_estimator: off
 Show estimated graph: off
 Start_date:2005-03-11
