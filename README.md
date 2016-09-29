@@ -7,7 +7,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Authentication: Replace `quandl.ApiConfig.api_key = 'YOURAPIKEY'` to your own Quandl API key in **data.py**. Strongly recommend replacing this with your own API key since the current API key in data.py is shared with the public.
 - Libraries: Must have `quandl`, `yahoo-finance`, `parse`, `numpy`, `pandas`, and `matplotlib` installed to your python interpreter.
 - Installation: The installation instructions are for OS X and Linux users. Windows users need to install a terminal that runs Unix commands.
-- Known Bug: Since there are limited queries for real-time stock information, sometimes it will query the data from previous trade day. Therefore, you may want to put down your real time stock information manually for accurate predictions.
+- Known Bug: Since there are limited queries for real-time stock information, sometimes it will query the data from previous trade day or even return Null. Therefore, you may want to put down your real time stock information manually for accurate predictions.
 
 ## Installation
 
@@ -17,7 +17,7 @@ This is a python script for predicting stock's adjusted close price using data f
 
 ## How to use this script##
 1. Modify **input.txt** with your stocks' ticker symbols and leave everything else as default for recommendations or put down your own customized data (Please read **Definition for input.txt** for more details).
-2. Open your terminal. Run `python main.py` in this directory.
+2. Open your terminal. Run `python main.py` in this directory. It will take about a minute to predict the adjusted close price.
 3. Use the result to justify your buying and selling.
 
 ## Definition for input.txt##
