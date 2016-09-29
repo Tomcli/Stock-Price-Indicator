@@ -24,7 +24,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Recommendation: Put down **yes** for recommendations to buy or sell for each trained stock. (Default: **no**)
 - Manual inputs: Put down **yes** to enable **Stock data** inputs. (Default: **no**)
 - Stock data: Put down the stock data that you want to predict manually with (ticker symbols, open price, current highest price, volume) format and separate each of them with `;` (e.g. **(goog,741.86,742.0,2980700);(fb,126.89,128.80,15691100)**). Be aware that **open price** and **current highest price** need to have 2 decimals(e.g **42.12**) and volume has to be a whole number. Remember to put down **yes** at **Manual inputs** to enable this feature.
-- Data size: Put down the number of data you want to train. The number must be an integer.(Default: 600)
+- Data size: Put down the number of data you want to train. The number must be an integer.(Default: **600**)
 
 ### Developer Inputs
 - Developer Mode: Set it **on** to enable all the developer inputs. (Default: **off**)
