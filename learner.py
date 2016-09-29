@@ -25,7 +25,7 @@ class trainer:
 		self.clf = None #Trained regressor
 		self.clf_score = None #Regressor R2 score
 
-	def training(self,start_date,end_date,best_est,graph,data_pre):
+	def training(self,start_date,end_date,best_est,graph,data_pre,data_size):
 		"""
 		Train the data based on the given parameters. Plot graph and show best estimator if the user is ask for.
 		Most of the commented codes are for testing. Please ignore or delete them.
@@ -34,7 +34,7 @@ class trainer:
 		data = stock.getData(self.ticker,start_date,end_date,"default","default") #query the data
 		# if start_date.replace(' ','') == 'default':
 		data.drop(['Close','Low'], axis = 1, inplace = True) #drop the two unnecessary features
-		data = data.tail(600) #In general, 600 samples is the best for bagging regressor.
+		data = data.tail(data_size) #In general, 600 samples is the best for bagging regressor.
 		#datas = []
 		# for i in range(1,11):
 		# 	datas.append(data.tail(i*200))
@@ -84,7 +84,7 @@ class trainer:
 			plt.close(plot)
 
 		#Testing code: plots for Exploratory Visualization
-		#plot = plt.figure()
+		# plot = plt.figure()
 		# plt.plot(adj_close, self.data['Open'],'ro', c = 'r', label = 'Open price for ' + self.ticker) 
 		# plt.plot(adj_close, self.data['High'],'ro',c = 'g', label = 'Highest price for ' + self.ticker) 
 		# plt.plot(adj_close, self.data['Volume'], 'ro', c = 'k', label = 'Volume for ' + self.ticker) 

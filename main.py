@@ -31,6 +31,9 @@ def run():
 		 	temp = search('({},{:f},{:f},{:d})',data)
 		 	manual_data_.append([temp[x] for x in range(4)])
 
+	data_size = search('Data size:{:d}\n',inputs)
+	data_size = data_size[0]
+
 	graph = search('Show estimated graph:{}\n',inputs)
 	graph = graph[0].replace(' ','')
 
@@ -76,7 +79,7 @@ def run():
 		pred_by_date = 'off'
 		data_pre = 'on'
 
-	#training and predicting
+	"""Training and predicting"""
 	trainers = [0] * len(tickers) #put all the trainer and predictor objects into lists
 	predictors = [0] * len(tickers)
 	for i, tick in enumerate(tickers): #train and predict for every ticker symbol
@@ -84,7 +87,7 @@ def run():
 		print "Training for " + tick + "..."
 		trainers[i] = learner.trainer(tick) #trainer is a class that trains all the data
 		#train based on start_data and end_data, and decide whether or not to enable plots and preprocess data
-		trainers[i].training(start_date, end_date, best_est, graph, data_pre) 
+		trainers[i].training(start_date, end_date, best_est, graph, data_pre, data_size) 
 		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100) #error rate is perecentage of (1 - R2 score)
 		
 		"""predicting adjusted close"""
@@ -98,7 +101,7 @@ def run():
 			for (i,), result in np.ndenumerate(results): #iterate through a numpy array
 				print 'Predicted adjusted close value for {} is {:.4f}'.format(pred_dates[i], result)
 				print 'Actual adjusted close value for {} is {:.4f}'.format(pred_dates[i], act_result[i])
-				
+
 		else: #if Prediction by date is off, predict the adjusted close price for today (most recent query from yahoo-finance)
 			cur_data = stock.getCurrent(tick)
 			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
