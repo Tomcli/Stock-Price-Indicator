@@ -88,7 +88,7 @@ def run():
 		trainers[i] = learner.trainer(tick) #trainer is a class that trains all the data
 		#train based on start_data and end_data, and decide whether or not to enable plots and preprocess data
 		trainers[i].training(start_date, end_date, best_est, graph, data_pre, data_size) 
-		print "Error rate for {}: {:.4f}%".format(tick,(1 - trainers[i].getClf_score()) * 100) #error rate is perecentage of (1 - R2 score)
+		print "Average error range for {}: ${:.4f}".format(tick,trainers[i].getClf_score()) #error rate is perecentage of (1 - R2 score)
 		
 		"""predicting adjusted close"""
 		print "This is the result for " + tick + ":"
@@ -106,12 +106,13 @@ def run():
 			cur_data = stock.getCurrent(tick)
 			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
 			result = predictors[i].pred_curr(cur_data[0:3])
+			print 'Real time price: {} | Open price: {} | Current high: {} | Current low: {} | Current volume: {} '.format(
+					cur_data[3],cur_data[0],cur_data[1],cur_data[5], cur_data[2])
 			print 'Predicted adjusted close value for today is {:.2f}'.format(float(result))
 			if recomm == 'yes': #if recommendation is yes, give recomendations to buy or sell based on the predicted price with 1.5*error rate boundary 
-				error = (1 - trainers[i].getClf_score())
-				print 'Real time price for {} is {}'.format(tick, cur_data[3])
+				error = trainers[i].getClf_score()
 				print 'Recommendation: Sell {} if the price is greater than {:.2f}. Buy {} if the price is lower than {:.2f}.'.format(
-						tick,float(result) * (1 + (1.5*error)), tick,float(result) * (1 - (1.5*error)))
+						tick,float(result) + (1.5*error), tick,float(result) - (1.5*error))
 
 		if manual == 'yes': #if Manual inputs is yes, predict the adjusted close price based on the given values
 			for data in manual_data_:

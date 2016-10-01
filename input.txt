@@ -10,9 +10,9 @@ Developer Mode: off
 Show best_estimator: off
 Show estimated graph: off
 Start_date:2005-03-11
-End_date:2015-07-15
+End_date:2016-09-19
 Prediction by date: on
-Predict_date: 2015-07-16, 2015-07-17, 2015-07-20, 2015-07-21, 2015-07-22
+Predict_date: 2016-09-20, 2016-09-26
 Data preprocessing: on
 
 Debugging Inputs::

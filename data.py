@@ -30,4 +30,5 @@ def getCurrent(ticker):
 	high = stock.get_days_high()
 	price = stock.get_price()
 	time = stock.get_trade_datetime()
-	return(open_,high,volume,price,time)
+	low = stock.get_days_low()
+	return(open_,high,volume,price,time,low)

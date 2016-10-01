@@ -11,6 +11,8 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import make_scorer
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib
@@ -47,16 +49,24 @@ class trainer:
 		Y = self.data[self.data.columns[-1]]
 		X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, Y, test_size=0.25, random_state=0)
 		clf = ensemble.BaggingRegressor(tree.DecisionTreeRegressor(max_depth = 50),random_state=0,n_estimators=50)
+        
+        #KNN regressor and parameters
+		#clf = ensemble.BaggingRegressor(KNeighborsRegressor(n_neighbors=10),random_state=0,n_estimators=50)
+		#parameters = {'base_estimator__n_neighbors': (3,5,8,10,15),'n_estimators':(5,10,20,50)}
 
 		#Tune parameters using grid search
 		parameters = {'base_estimator__max_depth': (5,10,20,50),'n_estimators':(5,10,20,50)}
-		grid_obj = GridSearchCV(clf,parameters)
+		scorer = make_scorer(mean_squared_error,greater_is_better=False)
+		grid_obj = GridSearchCV(clf,parameters,scoring = scorer)
 		grid_obj = grid_obj.fit(X_train,y_train)
 		clf = grid_obj.best_estimator_
 		if best_est == 'on': #if Show best_estimator is on, print out the best estimator
 			print grid_obj.best_estimator_
 		clf.fit(X_train, y_train)
-		self.clf_score = clf.score(X_test,y_test) #Store R2 score
+		y = y_test
+		y_pred = clf.predict(X_test)
+		RMSE = mean_squared_error(y, y_pred)**0.5 #calculate the root mean squared error
+		self.clf_score = RMSE #Store R2 score
 		self.clf = clf
 
 		if graph == 'on': #show plot if show estimated graph condition is on
