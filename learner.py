@@ -75,11 +75,11 @@ class trainer:
 			regressor = clf.predict(X)
 			#reference from sklearn: http://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_regression.html
 			plt1, = plt.plot(adj_close, c = 'r', label = 'Actual adjusted close') 
-			plt2, = plt.plot(data.index, regressor, c = 'g' , label = "Predicted adjusted close")
+			plt2, = plt.plot(data.index, regressor, c = 'g' , label = "Predicted regressor")
 			plt.xlabel("Date")
 			plt.ylabel("Adjusted close")
 			plt.title("Adjusted close for " + self.ticker)
-			r2 = mpatches.Patch(label='R2 score: {:.4f}'.format(self.clf_score)) #reference from matplotlib legend guide
+			r2 = mpatches.Patch(label='Error range: ${:.4f}'.format(self.clf_score)) #reference from matplotlib legend guide
 			plt.legend(handles = [r2,plt1,plt2]) 
 			plt.show()
 			plt.close(plot)

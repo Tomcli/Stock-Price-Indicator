@@ -104,7 +104,7 @@ def run():
 
 		else: #if Prediction by date is off, predict the adjusted close price for today (most recent query from yahoo-finance)
 			cur_data = stock.getCurrent(tick)
-			print 'Today\'s data for {} is queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
+			print 'Today\'s data for {} queried at {}'.format(tick, cur_data[4][:23]) #print out the queried time
 			result = predictors[i].pred_curr(cur_data[0:3])
 			print 'Real time price: {} | Open price: {} | Current high: {} | Current low: {} | Current volume: {} '.format(
 					cur_data[3],cur_data[0],cur_data[1],cur_data[5], cur_data[2])
