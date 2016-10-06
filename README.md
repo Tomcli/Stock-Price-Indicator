@@ -9,6 +9,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Installation: The installation instructions are for OS X and Linux users. Windows users need to install a terminal that runs Unix commands.
 - Usage: Using this script during nonmarket hours will give you a prediction with data leakage because you are predicting a known adjusted close price. However, you can use manual inputs option to test or estimate using your own open, high, and volume data during nonmarket hours.
 - Known Bug: Since there are limited queries for real-time stock information from Yahoo finance, sometimes it will query the data from previous trade day or even return Null. Therefore, you may want to put down your real time stock information manually(using ##manual inputs##) for accurate predictions.
+- For more details of this project, please refer to **report.pdf**.
 
 ## Installation
 
