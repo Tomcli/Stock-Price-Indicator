@@ -9,6 +9,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Installation: The installation instructions are for OS X and Linux users. Windows users need to install a terminal that runs Unix commands.
 - Usage: Using this script during nonmarket hours will give you a prediction with data leakage because you are predicting a known adjusted close price. However, you can use manual inputs option to test or estimate using your own open, high, and volume data during nonmarket hours.
 - Known Bug: Since there are limited queries for real-time stock information from Yahoo finance, sometimes it will query the data from previous trade day or even return Null. Therefore, you may want to put down your real time stock information manually(using ##manual inputs##) for accurate predictions.
+- Algorithm: The final model is trained by Bagging with Decision Trees as the base estimator. However, you can use the Random Forest algorithm which did not create a significant improvement for most stock while having higher time complexity.
 - For more details of this project, please refer to **report.pdf**.
 
 ## Installation
@@ -29,6 +30,7 @@ This is a python script for predicting stock's adjusted close price using data f
 - Manual inputs: Put down **yes** to enable **Stock data** inputs. (Default: **no**)
 - Stock data: Put down the stock data that you want to predict manually with *(ticker symbols, open price, current highest price, volume)* format and separate each of them with `;`. For example, **(goog,741.86,742.0,2980700);(fb,126.89,128.80,15691100)**). Be aware that **open price** and **current highest price** need to have 2 decimals and volume has to be a whole number. Remember to put down **yes** at **Manual inputs** to enable this feature.
 - Data size: Put down the number of data you want to train. The number must be an integer. (Default: **600**)
+- Random Forest : Put down **yes** to enable Random Forest algorithm. (Default: **no**)
 
 ### Developer Inputs
 - Developer Mode: Set it **on** to enable all the developer inputs. (Default: **off**)

@@ -27,7 +27,7 @@ class trainer:
 		self.clf = None #Trained regressor
 		self.clf_score = None #Regressor R2 score
 
-	def training(self,start_date,end_date,best_est,graph,data_pre,data_size):
+	def training(self,start_date,end_date,best_est,graph,data_pre,data_size,forest):
 		"""
 		Train the data based on the given parameters. Plot graph and show best estimator if the user is ask for.
 		Most of the commented codes are for testing. Please ignore or delete them.
@@ -48,14 +48,18 @@ class trainer:
 		X = self.data[self.data.columns[:-1]]
 		Y = self.data[self.data.columns[-1]]
 		X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, Y, test_size=0.25, random_state=0)
-		clf = ensemble.BaggingRegressor(tree.DecisionTreeRegressor(max_depth = 50),random_state=0,n_estimators=50)
+		if forest == 'yes':
+			clf = ensemble.RandomForestRegressor(random_state=0, n_estimators=50, max_depth = 50)
+			parameters = {'max_depth': (5,10,20,50,None),'n_estimators':(5,10,20,50)}
+		else:
+			clf = ensemble.BaggingRegressor(tree.DecisionTreeRegressor(max_depth = 50),random_state=0,n_estimators=50)
         
-        #KNN regressor and parameters
-		#clf = ensemble.BaggingRegressor(KNeighborsRegressor(n_neighbors=10),random_state=0,n_estimators=50)
-		#parameters = {'base_estimator__n_neighbors': (3,5,8,10,15),'n_estimators':(5,10,20,50)}
+	        #KNN regressor and parameters
+			#clf = ensemble.BaggingRegressor(KNeighborsRegressor(n_neighbors=10),random_state=0,n_estimators=50)
+			#parameters = {'base_estimator__n_neighbors': (3,5,8,10,15),'n_estimators':(5,10,20,50)}
 
-		#Tune parameters using grid search
-		parameters = {'base_estimator__max_depth': (5,10,20,50),'n_estimators':(5,10,20,50)}
+			#Tune parameters using grid search
+			parameters = {'base_estimator__max_depth': (5,10,20,50),'n_estimators':(5,10,20,50)}
 		scorer = make_scorer(mean_squared_error,greater_is_better=False)
 		grid_obj = GridSearchCV(clf,parameters,scoring = scorer)
 		grid_obj = grid_obj.fit(X_train,y_train)

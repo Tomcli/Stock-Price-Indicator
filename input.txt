@@ -4,6 +4,7 @@ Recommendation: yes
 Manual inputs: no
 Stock data:(GOOG,741.86,742.0,2980700);(FB,126.89,128.80,15691100)
 Data size: 600
+Random Forest: no
 
 Developer Inputs::
 Developer Mode: off

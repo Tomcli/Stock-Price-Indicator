@@ -34,6 +34,9 @@ def run():
 	data_size = search('Data size:{:d}\n',inputs)
 	data_size = data_size[0]
 
+	forest = search('Random Forest:{}\n',inputs)
+	forest = forest[0].replace(' ','')
+
 	graph = search('Show estimated graph:{}\n',inputs)
 	graph = graph[0].replace(' ','')
 
@@ -87,7 +90,7 @@ def run():
 		print "Training for " + tick + "..."
 		trainers[i] = learner.trainer(tick) #trainer is a class that trains all the data
 		#train based on start_data and end_data, and decide whether or not to enable plots and preprocess data
-		trainers[i].training(start_date, end_date, best_est, graph, data_pre, data_size) 
+		trainers[i].training(start_date, end_date, best_est, graph, data_pre, data_size, forest) 
 		print "Average error range for {}: ${:.4f}".format(tick,trainers[i].getClf_score()) #error rate is perecentage of (1 - R2 score)
 		
 		"""predicting adjusted close"""
